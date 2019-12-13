@@ -1,1 +1,1 @@
-curl bot.whatismyipaddress.com>myip.log
+udo curl bot.whatismyipaddress.com>myip.log
