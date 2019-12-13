@@ -1,1 +1,1 @@
-sudo curl bot.whatismyipaddress.com>myip.log
+sudo curl bot.whatismyipaddress.com > myip.log
