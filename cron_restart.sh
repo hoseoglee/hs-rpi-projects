@@ -1,1 +1,1 @@
-/etc/init.d/cron restart;w
+sudo /etc/init.d/cron restart
