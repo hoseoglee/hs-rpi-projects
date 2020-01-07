@@ -3,11 +3,15 @@ import json
 import requests
 import argparse
 
-blogName = sys.argv[0]
-token = sys.argv[1]
-filename = sys.argv[2]
+blogName = sys.argv[1]
+token = sys.argv[2]
+filename = sys.argv[3]
 
-f = open("./contents/"+filename,'r')
+print("blogName:"+blogName)
+print("token:"+token)
+print("filename:"+filename)
+
+f = open("/home/pi/contents/"+filename,'r')
 file_content="<pre>";
 while True:
     line = f.readline()
@@ -20,7 +24,7 @@ print(file_content)
 output ='json'
 title = filename
 content = file_content
-visibility = 0
+visibility = 1
 
 params = {'access_token': token, 'output':output, 'blogName': blogName,'title': title,'content': content,'visibility': visibility}
 rd = requests.post('https://www.tistory.com/apis/post/write', params=params)
