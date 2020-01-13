@@ -13,13 +13,12 @@ print("token:"+token)
 print("filename:"+filename)
 
 f = open("/home/pi/contents/"+filename,'r')
-file_content="<pre>";
+file_content=""
 while True:
     line = f.readline()
     if not line: break
     file_content += line
 f.close()
-file_content +="</pre>"
 
 print(file_content)
 output ='json'
