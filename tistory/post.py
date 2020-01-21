@@ -25,7 +25,7 @@ print(file_content)
 output ='json'
 title = filename
 content = file_content
-visibility = 1
+visibility = 3
 
 params = {'access_token': token, 'output':output, 'blogName': blogName,'title': title,'content': content,'visibility': visibility}
 rd = requests.post('https://www.tistory.com/apis/post/write', params=params)
