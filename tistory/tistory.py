@@ -1,18 +1,71 @@
+#read: 
+#list:
+#post:
+#modify:
+
 import sys
 import json
 import requests
 import argparse
+import argparse
 
-blogName = sys.argv[1]
-token = sys.argv[2]
-filename = sys.argv[3]
-visibility = sys.argv[4]
+parser = argparse.ArgumentParser()
+parser.add_argument('-action', help='action')
+parser.add_argument('-blogname', help='blogname')
+parser.add_argument('-token', help='token')
+parser.add_argument('-filename', help='filename')
+parser.add_argument('-visibility', help='visibility')
+parser.add_argument('-postid', help='postid')
+args = parser.parse_args()
 
-print("blogName:"+blogName)
-print("token:"+token)
-print("filename:"+filename)
+action = args.action
+blogName = args.blogname
+token = args.token
+filename = args.filename
+visibility = args.visibility
 
-def post(blogName, token, filename, visibility):
+output = 'json'
+
+def main():
+	if action=='post':
+		print("post")
+	elif action=='modify':
+		print("modify")
+	elif action=='list':
+		print("list")
+	elif action=='read':
+		print("read")
+	else:
+		print("action")
+
+	#post(blogName, token, filename, visibility)
+	
+
+def list(page):
+	params = {'access_token': token, 'output':output, 'blogName': blogName,'page': page}
+	rd = requests.get('https://www.tistory.com/apis/post/list', params=params)
+	print(rd)
+
+	try:
+		item = json.loads(rd.text)
+		posts = item['tistory']['item']['posts']
+		print(posts)
+		print(len(posts))
+	except:
+		print("Failed")
+
+def read(postId):
+	params = {'access_token': token, 'output': output, 'blogName': blogName,'postId': postId}
+	rd = requests.get('https://www.tistory.com/apis/post/read', params=params)
+	print(rd)
+
+	try:
+		item = json.loads(rd.text)
+		print(item)
+	except:
+		traceback.print_exc()
+
+def post(filename, visibility):
     f = open("/home/pi/contents/"+filename,'r')
     file_content="<pre>";
     while True:
@@ -23,7 +76,6 @@ def post(blogName, token, filename, visibility):
     file_content +="</pre>"
 
     print(file_content)
-    output ='json'
     title = filename
     content = file_content
 
@@ -36,5 +88,21 @@ def post(blogName, token, filename, visibility):
         print(item)
     except:
         print("Failed")
+		
 
-post(blogName, token, filename, visibility)
+def modify(page):
+
+	params = {'access_token': token, 'output':output, 'blogName': blogName,'page': page}
+	rd = requests.get('https://www.tistory.com/apis/post/list', params=params)
+	print(rd)
+
+	try:
+		item = json.loads(rd.text)
+		posts = item['tistory']['item']['posts']
+		print(posts)
+		print(len(posts))
+	except:
+		print("Failed")
+
+if __name__=="__main__":
+    main():
