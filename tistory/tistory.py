@@ -1,6 +1,6 @@
 #read: 
 #list:
-#post:
+#post:python tistory.py -token 6197da19acb927f1e69c796a362f5b2e_fe0cf1eab7c2681215ecf134788a5579 -action post -blogname cognitive -filename /home/pi/contents/2020/\[done\]20200218_외부_앱_실행  -visibility 3
 #modify:
 
 import sys
@@ -65,8 +65,8 @@ def read(postId):
     except:
         traceback.print_exc()
 
-def post(filename, visibility):
-    f = open("/home/pi/contents/"+filename,'r')
+def post(blogname, token, filename, visibility):
+    f = open(filename,'r')
     file_content="<pre>"
     while True:
         line = f.readline()
